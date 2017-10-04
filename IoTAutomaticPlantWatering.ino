@@ -4,7 +4,7 @@
  * Input/Output
  */
 
-int inMoistureSensor = 1;    //Analog: Read Sensor
+int inMoistureSensor = 0;    //Analog: Read Sensor
 int pinOnMoistureSensor = 2; //Digital: on/off sensor
 int outControl = 3;          //PWM Digital: Motor output
 int pinInternalLed = 13;     //Digital: Led output (internal) used as indicator
@@ -90,8 +90,10 @@ void loop()                     // run over and over again
   delay(100);
 
   //Main Sleep
-  delay(2000);
-
-  //Sleep for 8s
-  //LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+  //delay(2000);
+  
+  //Sleep 24 hours (3600 seconds)
+  int endForSleep = 3600/8;  //8 -> 8 sec is the max to put in the LowPower library to sleep
+  for(int i=0; i<endForSleep; i++)
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
 }
